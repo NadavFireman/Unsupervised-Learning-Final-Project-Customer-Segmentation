@@ -4,19 +4,19 @@ Final Project (M.Sc. Data Science, HIT). Customer segmentation on Online Retail 
 
 ## Key Features
 
-* **Temporal Split First**: 60/20/20 into three consecutive windows — 464 / 181 / 94 days — before any cleaning. Every fitted map is learned from the training window alone.
-* **Feature Engineering**: 1,067,371 rows reduce to 470,345 clean training rows and 3,057 customers. Volume features are monthly rates so windows of different length stay comparable; Yeo-Johnson then min-max brings mean skew from 5.26 to 0.20.
-* **Five Algorithms**: K-Means, K-Medoids (FasterPAM), Fuzzy C-Means, Agglomerative (Ward) and a Gaussian Mixture, each scanning its own grid of feature count against k. HDBSCAN as a density check.
-* **Stability as the Deciding Metric**: SSE has no elbow and silhouette peaks at k=2, so neither can choose k. Selection ran on transfer instead — retention ≥ 0.9, zero vanished clusters, ARI on returning customers — giving 9 features and k=3.
-* **Supervised Judge**: LightGBM on the cluster labels against the majority baseline in every window — the one measurement here that is not distance-based.
+* **Temporal Split First**: 60/20/20 into three consecutive windows — 464 / 181 / 94 days — before any cleaning. Everything is fitted on the training window alone.
+* **Feature Engineering**: 1,067,371 rows down to 3,057 customers. Volume as monthly rates so unequal windows compare; Yeo-Johnson then min-max cuts mean skew from 5.26 to 0.20.
+* **Five Algorithms**: K-Means, K-Medoids, Fuzzy C-Means, Agglomerative and a Gaussian Mixture, each scanning its own grid. HDBSCAN as a density check.
+* **Stability Decides k**: SSE has no elbow and silhouette peaks at k=2, so neither can choose. Transfer to the next window did — 9 features, k=3.
+* **Supervised Judge**: LightGBM on the cluster labels against the majority baseline, the one measurement here that is not distance-based.
 
 ## Results
 
 Five algorithms agree with each other at **ARI 0.41** inside one window. Each agrees with **itself** across two windows at only **0.08**. The boundary belongs to the window, not to the customer.
 
-K-Means was selected: silhouette 0.208 / 0.188 / 0.157, and 0.928 supervised accuracy on validation against a 0.467 baseline. Three segments — wholesale-deal buyers (684 customers, 58.4% of revenue), regular retail (1,251, 32.3%) and occasional buyers (1,122, 9.3%). Individual labels do not survive the next window (ARI 0.124 and 0.165), but the economics do: 23.5% of test-window customers hold 48.9% of its revenue. Unusable for per-customer targeting, usable for group-level budgeting.
+K-Means won: silhouette 0.208 / 0.188 / 0.157, and 0.928 accuracy against a 0.467 baseline. Three segments — wholesale-deal buyers (684 customers, 58.4% of revenue), regular retail (1,251, 32.3%), occasional (1,122, 9.3%). The labels don't survive the next window (ARI 0.124 and 0.165), but the economics do: 23.5% of test-window customers hold 48.9% of its revenue. Unusable for targeting, usable for budgeting.
 
-SHAP puts `campaign_pct` and `interval_std` first and classic RFM last — the framework's extensions do the separating, not its core. Product categories correlate at most 0.021 with any segment, while quantity and bulk buying reach 0.33: the segments differ in *how* customers buy, not *what*.
+SHAP puts `campaign_pct` and `interval_std` first and classic RFM last — the extensions do the separating, not the core. Product categories correlate at most 0.021 with any segment: the segments differ in *how* customers buy, not *what*.
 
 ## Repository Structure
 
