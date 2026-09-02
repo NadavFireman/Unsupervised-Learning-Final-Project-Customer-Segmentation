@@ -28,7 +28,7 @@ SHAP puts `campaign_pct` and `interval_std` first and RFM last: the extensions s
 * `validation.py`: Stability against the following window, and the test-window report
 * `validate.py`: Rebuilds every published figure from the raw CSV. `python validate.py online_retail_II.csv`
 * `online_retail_II.csv`: Raw dataset, 95 MB - download from the Kaggle link below
-* * `customer_segmentation_presentation.pdf`: Project presentation, 25 slides
+* `customer_segmentation_presentation.pdf`: Project presentation, 25 slides
 * `final_project_instructions.pdf`: Course requirements
 
 ## References
