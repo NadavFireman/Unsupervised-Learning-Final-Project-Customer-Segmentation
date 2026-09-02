@@ -7,8 +7,8 @@ Final Project (M.Sc. Data Science, HIT). Customer segmentation on Online Retail 
 * **Temporal Split First**: 60/20/20 into three consecutive windows — 464 / 181 / 94 days — before any cleaning. Everything is fitted on the training window alone.
 * **Feature Engineering**: 1,067,371 rows down to 3,057 customers. Volume as monthly rates so unequal windows compare; Yeo-Johnson then min-max cuts mean skew from 5.26 to 0.20.
 * **Five Algorithms**: K-Means, K-Medoids, Fuzzy C-Means, Agglomerative and a Gaussian Mixture, each scanning its own grid. HDBSCAN as a density check.
-* **Stability Decides k**: SSE has no elbow and silhouette peaks at k=2, so neither can choose. Transfer to the next window did — 9 features, k=3.
-* **Supervised Judge**: LightGBM on the cluster labels against the majority baseline, the one measurement here that is not distance-based.
+* **Stability Decides k**: SSE has no elbow, silhouette peaks at k=2. Transfer to the next window chose — 9 features, k=3.
+* **Supervised Judge**: LightGBM on the cluster labels against the majority baseline — the one check that is not distance-based.
 
 ## Results
 
@@ -16,7 +16,7 @@ Five algorithms agree with each other at **ARI 0.41** inside one window. Each ag
 
 K-Means won: silhouette 0.208 / 0.188 / 0.157, and 0.928 accuracy against a 0.467 baseline. Three segments — wholesale-deal buyers (684 customers, 58.4% of revenue), regular retail (1,251, 32.3%), occasional (1,122, 9.3%). The labels don't survive the next window (ARI 0.124 and 0.165), but the economics do: 23.5% of test-window customers hold 48.9% of its revenue. Unusable for targeting, usable for budgeting.
 
-SHAP puts `campaign_pct` and `interval_std` first and classic RFM last — the extensions do the separating, not the core. Product categories correlate at most 0.021 with any segment: the segments differ in *how* customers buy, not *what*.
+SHAP puts `campaign_pct` and `interval_std` first and RFM last: the extensions separate, not the core. And product categories correlate at most 0.021 with any segment — customers differ in *how* they buy, not *what*.
 
 ## Repository Structure
 
