@@ -1,6 +1,6 @@
 # Unsupervised Learning Final Project - Customer Segmentation
 
-Final Project (M.Sc. Data Science, HIT). Customer segmentation on Online Retail II - 1,067,371 transactions - asking whether a segment is a stable property of the customer or a snapshot of the window it was measured in. A transfer test of the extended RFM framework in Ozcan (2026), whose own data and code are not public.
+Final Project (Grade 95, M.Sc. Data Science, HIT). Customer segmentation on Online Retail II - 1,067,371 transactions - asking whether a segment is a stable property of the customer or a snapshot of the window it was measured in. A transfer test of the extended RFM framework in Ozcan (2026), whose own data and code are not public.
 
 ## Key Features
 
